@@ -1,0 +1,10 @@
+// Create user table
+create table users
+(
+    id int AUTO_INCREMENT primary key,
+    username varchar(50),
+    email varchar(50),
+    user_type smallint,
+    active_status boolean,
+    pass varchar(20)
+)
