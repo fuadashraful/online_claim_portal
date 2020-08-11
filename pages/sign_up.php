@@ -15,7 +15,7 @@
         $pass1=$_POST['password_1'];
         $pass2=$_POST['password_2'];
 
-        $errors=$validate->verify_data($username,$email,$user_type,$pass1,$pass2);
+        $errors=$validate->verify_signup_data($username,$email,$user_type,$pass1,$pass2);
         //print_r($errors);
 
         if(empty($errors))
@@ -47,10 +47,33 @@
     <?php include '../partials/css_files.php' ?>
     <title>Online Claim Form Website | Sign Up Here</title>
     
-<link rel="stylesheet" href="../assets/sign_up.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../assets/sign_up_and_login.css" crossorigin="anonymous">
 
 </head>
 <body>
+
+    <div class="container">
+        <div class="row">
+            <?php
+                if(!empty($errors))
+                {
+                     foreach ($errors as $error) 
+                     {
+            ?>
+                <div class="col-md-6 offset-md-3">
+                    <div class="alert alert-danger" role="alert">
+                    <?php echo $error ?>
+                    </div>
+                </div>
+
+            <?php
+                    }
+                $errors=array();   
+               }
+            ?>
+        </div>
+    </div>
+
     <div class="header">
     <h2>Register</h2>
     </div>
@@ -86,6 +109,9 @@
         </div>
         <p>
             Already a member? <a href="login.php">Log In</a>
+        </p>
+        <p>
+            Goto Homepage <a href="../index.php">HomePage</a>
         </p>
     </form>
     

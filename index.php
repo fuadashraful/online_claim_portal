@@ -1,39 +1,81 @@
 <?php
-	
+	session_start();
 	$page_title="Welcome to Homepage";
 	include_once 'db/DB.php';
 	$conn=DB::getConnection();
- 
+
+    if( isset($_SESSION['user_id']) ){
+
+        $records = $conn->prepare('SELECT id,username FROM users WHERE id = :id');
+        $records->bindParam(':id', $_SESSION['user_id']);
+        $records->execute();
+        $results = $records->fetch(PDO::FETCH_ASSOC);
+
+        $user = NULL;
+
+        if( count($results) > 0){
+            $user = $results;
+        }
+
+    }
 ?>
 
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Welcome to Online Claim Website | Nilai University</title>
     <?php include 'partials/css_files.php' ?>
-    <title>Online Claim Form Website | Nilai University</title>
-    
-<link rel="stylesheet" href="assets/index.css" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="assets/index.css" crossorigin="anonymous">
 </head>
 <body>
-     
     <div class="bodybg">
-         <div class="navbar">
-             <button type="button" class="button"><a href="pages/sign_up.php">Sign up</a></button>
-             <button type="button" class="button"><a href="login.php">Login</a></button>
 
-         </div>
-         <div class="content">
-             <small>Welcome to Nilai University</small>
-             <h1>Online Claim Portal</h1>
-             <button type="button" class="button"><b><a href="login.php">Login</a></b></button>
-         </div>
+        <div class="container">
+            <div class="row">
+
+                    <?php
+                        if(isset($_SESSION['success_message']))
+                        {
+                           // echo "ok done";
+                    ?>
+                        <div class="col-md-6 offset-md-3">
+                            <div class="alert alert-success" role="alert">
+                            <?php echo $_SESSION['success_message']; ?>
+                            </div>
+                        </div>
+                    <?php
+                            unset($_SESSION['success_message']);
+                        }
+                    ?>
+
+
+            </div>
+        </div>
+
+      <div class="navbar">
+
+            <?php if( !empty($user) ): ?>
+
+                <button type="button" class="button"><a href=""> <?= $user['username']; ?> </a></button>
+                <button type="button" class="button"><a href="pages/logout.php">Logout ?</a></button>
+
+            <?php else: ?>
+
+             <button type="button" class="button"><a href="pages/sign_up.php">Sign up</a></button>
+             <button type="button" class="button"><a href="pages/login.php">Login</a></button>
+
+            <?php endif; ?>
+      </div>
+
+      <div class="bodybox">
+          <h1>Choose Your Option</h1>
+          <btn class="btn btn1">Part-Time Teaching Form</btn>
+          <btn class="btn btn1">Over-Time Teaching Form</btn>
+          <btn class="btn btn1">Expense Claim Form</btn>
+          <btn class="btn btn1">Questions Paper From</btn>
+      </div> 
     </div>
-    
-    <?php include 'partials/js_files.php' ?>
 </body>
 </html>

@@ -9,7 +9,7 @@
             $this->db=$conn;
         }
 
-        public function verify_data($username,$email,$user_type,$pass1,$pass2)
+        public function verify_signup_data($username,$email,$user_type,$pass1,$pass2)
         {
             $errors=array();
             if(strlen($username)<5)
@@ -37,6 +37,36 @@
                 if($count>0)
                 {
                     $errors[]='email already exist';
+                }
+            }
+            catch(PDOException $e)
+            {
+                $errors[]='may be sql query error';
+            }
+
+            return $errors;
+        }
+
+        public function varify_login_data($email,$pass)
+        {
+            $errors=array();
+
+            try
+            {
+                $stmt = $this->db->prepare("SELECT id,active_status FROM users where email='$email' and pass='$pass'");
+                $stmt->execute();
+                $count = $stmt->rowCount();
+                $results = $stmt->fetch(PDO::FETCH_ASSOC);
+                if($count==0)
+                {
+                     $errors[]='email and password you provided are invalid';
+                }
+                else
+                {
+                    if($results['active_status']==0)
+                    {
+                        $errors[]='account is not activated yet';
+                    }
                 }
             }
             catch(PDOException $e)
