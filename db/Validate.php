@@ -76,5 +76,55 @@
 
             return $errors;
         }
+
+
+        public function validate_parttime_teaching_data($post_dict)
+        {
+            $errors=array();
+
+            try
+            {
+
+                if( !isset($post_dict['name']) || !isset($post_dict['schoolof']) || !isset($post_dict['month']) || !isset($post_dict['department']) || !isset($post_dict['lecture_rate']) ||
+                !isset($post_dict['tutorial_rate']) ||  !isset($post_dict['traveling_days'])  || !isset($post_dict['signature']) || !isset($post_dict['cur_date']) ||  !isset($post_dict['signature_hod']) || !isset($post_dict['signature_dean']) )
+                {
+                    $errors[]='Please fill up input fields perfectly there are something wrongggggg';
+                    return $errors;
+                }
+
+            }
+            catch(Exception $e)
+            {
+                 $errors[]='There are some problem from exception blockkkkk';
+                 return $errors;
+            }
+
+            try
+            {
+                $number=$post_dict['total_object'];
+                for ($x = 0; $x <$number; $x++)
+                {
+                    $my_date="my_date-".$x;
+                    $subject="subject-".$x;
+                    $hours="hours-".$x;
+                    $lecture_type="lecture_type-".$x;
+                    $varified_by="varified_by-".$x;
+
+                    if(!isset($post_dict[$my_date]) || !isset($post_dict[$subject]) || !isset($post_dict[$hours]) || !isset($post_dict[$lecture_type]) || !isset($post_dict[$varified_by]))
+                    {
+                         $errors[]='Please fill up input fields perfectly there are something wrong';
+                         return $errors;
+                    }
+                }
+
+            }
+            catch(Exception $e)
+            {
+                 $errors[]='There are some problem from exception block';
+            }
+
+
+            return $errors;
+        }
     }
 ?>

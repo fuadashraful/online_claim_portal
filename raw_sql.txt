@@ -8,3 +8,32 @@ create table users
     active_status boolean,
     pass varchar(20)
 )
+
+// create part_time_table
+create table part_time_teaching(
+    id int AUTO_INCREMENT primary KEY,
+    name varchar(50),
+    school_of varchar(50),
+    month_name varchar(50),
+    department varchar(50),
+    lecture_per_hour decimal(10,2),
+    tutorial_per_hour decimal(10,2),
+    traveling_reimbursement_days int,
+    signature_hod varchar(50),
+    signature_dean varchar(50),
+    added_date date
+)
+
+// create part_time_teaching_data
+create table part_time_teaching_data(
+	id int AUTO_INCREMENT PRIMARY KEY,
+    added_date date,
+    subject varchar(50),
+    lectur_hour int ,
+    lecture_type int,
+    varified_by_hod varchar(50),
+    part_time_teaching_tbl_id int NOT null,
+    FOREIGN KEY (part_time_teaching_tbl_id )
+    REFERENCES part_time_teaching (id)
+    ON DELETE CASCADE
+)

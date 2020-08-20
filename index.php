@@ -71,7 +71,7 @@
 
       <div class="bodybox">
           <h1>Choose Your Option</h1>
-          <btn class="btn btn1">Part-Time Teaching Form</btn>
+          <a href="pages/part_time_teaching.php"><btn class="btn btn1">Part-Time Teaching Form</btn></a>
           <btn class="btn btn1">Over-Time Teaching Form</btn>
           <btn class="btn btn1">Expense Claim Form</btn>
           <btn class="btn btn1">Questions Paper From</btn>

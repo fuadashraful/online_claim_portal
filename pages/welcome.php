@@ -1,3 +1,4 @@
 <?php
-	echo "your data inserted sucessfully";
+	echo "Your data inserted successfully";
+
 ?>
