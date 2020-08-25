@@ -123,6 +123,53 @@
                  $errors[]='There are some problem from exception block';
             }
 
+            return $errors;
+        }
+
+        public function validate_overtime_teaching_data($post_dict)
+        {
+            $errors=array();
+
+            try
+            {
+                if(!isset($post_dict['name']) || !isset($post_dict['facultyof']) || !isset($post_dict['emp_no']) || !isset($post_dict['department']) || !isset($post_dict['position']) || !isset($post_dict['semester']) || !isset($post_dict['total_contact']) || !isset($post_dict['total_excess_252']) || !isset($post_dict['diploma_lecture_rate']) || !isset($post_dict['diploma_tutorial_rate']) || !isset($post_dict['degree_lecture_rate']) || !isset($post_dict['degree_tutorial_rate']) || !isset($post_dict['signature_hod']) || !isset($post_dict['signature_dean']) || !isset($post_dict['signature_deputy_vc']))
+                {
+                    $errors[]='Please fill up input fields perfectly there are something wrongggggg';
+                    return $errors;
+                }
+            }
+            catch(Exception $e)
+            {
+                $errors[]='There are some problem from exception blockkkkk';
+                return $errors;
+            }
+            
+            try
+            {
+                $number=$post_dict['total_object'];
+
+                for($x=0;$x<$number;$x++)
+                {
+                    $my_date="my_date-".$x;
+                    $day="day-".$x;
+                    $subject="subject-".$x;
+                    $subject_code="subject_code-".$x;
+                    $no_of_std="no_of_std-".$x;
+                    $level="level-".$x;
+                    $lecture="lecture-".$x;
+                    $tutorial="tutorial-".$x;
+
+                    if(!isset($post_dict[$my_date]) || !isset($post_dict[$day]) || !isset($post_dict[$subject]) || !isset($post_dict[$subject_code]) || !isset($post_dict[$no_of_std]) || !isset($post_dict[$level]) || !isset($post_dict[$lecture]) || !isset($post_dict[$tutorial]))
+                    {
+                        $errors[]='Please fill up input fields perfectly there are something wrong';
+                        return $errors;
+                    }
+                }
+            }
+            catch(Exception $e)
+            {
+                $errors[]='There are some problem from exception block';
+            }
 
             return $errors;
         }

@@ -2,3 +2,4 @@
 	echo "Your data inserted successfully";
 
 ?>
+

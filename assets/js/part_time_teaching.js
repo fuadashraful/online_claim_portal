@@ -155,7 +155,6 @@ html+='        </tbody>'+
 '  </div>'+
 '</div>'+
 
-
 '            <a href="../index.php"><button type="button" class="button">Cancel</button></a>'+
 '            <button type="button" class="button">Dashboard</button>'+
 '        </div>'+

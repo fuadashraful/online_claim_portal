@@ -37,3 +37,42 @@ create table part_time_teaching_data(
     REFERENCES part_time_teaching (id)
     ON DELETE CASCADE
 )
+
+// create overtime_teaching table
+
+create table overtime_teaching(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    name varchar(50),
+    faculty_of varchar(50),
+    emp_no varchar(50),
+    dept_name varchar(50),
+    position varchar(50),
+    semester varchar(50),
+    total_contact DECIMAL(10,2),
+    total_excess_252 DECIMAL(10,2),
+    diploma_lecture_rate DECIMAL(10,2),
+    diploma_tutorial_rate DECIMAL(10,2),
+    degree_lecture_rate DECIMAL(10,2),
+    degree_tutorial_rate DECIMAL(10,2),
+    signature_hod varchar(50),
+    signature_dean varchar(50),
+    signature_deputy_vc varchar(50)
+)
+
+// create overtime teaching data
+create table overtime_teaching_data(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    added_date date,
+    cur_day varchar(50),
+    subject varchar(50),
+    sub_code varchar(50),
+    no_of_std DECIMAL(10,2),
+    deg_diploma_level varchar(50),
+    lecture DECIMAL(10,2),
+    tutorial DECIMAL(10,2),
+    overtime_teaching_tbl_id int NOT null,
+    FOREIGN KEY (overtime_teaching_tbl_id )
+    REFERENCES overtime_teaching (id)
+    ON DELETE CASCADE
+    
+)
