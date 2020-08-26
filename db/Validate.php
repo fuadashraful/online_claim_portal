@@ -223,5 +223,89 @@
 
             return $errors;
         }
+
+
+
+        public function validate_expense_claim_data($post_dict)
+        {
+            $errors=array();
+
+            try
+            {
+
+
+                if(!isset($post_dict['name']) || !isset($post_dict['staff_no']) || !isset($post_dict['department']) || !isset($post_dict['month']) || !isset($post_dict['first_500']) || !isset($post_dict['there_after']) || !isset($post_dict['staff_signature']) || !isset($post_dict['signature']) )
+                {
+                    $errors[]='Please fill up input fields perfectly there are something wrong';
+                    return $errors;
+                }
+            }
+            catch(Exception $e)
+            {
+                $errors[]='There are some problem from exception blockkkkk';
+                return $errors;
+            }
+
+            try
+            {
+                $number=$post_dict['total_object'];
+
+                for($i=0;$i<$number;++$i)
+                {
+                    $my_date="my_date-".$i;
+                    $description="description-".$i;
+                    $remarks="remarks-".$i;
+                    $amount_1="amount_1-".$i;
+                    $amount_2="amount_2-".$i;
+
+                    if(!isset($post_dict[$my_date]) || !isset($post_dict[$description]) || !isset($post_dict[$remarks]) || !isset($post_dict[$amount_1]) || !isset($post_dict[$amount_2]) )
+                    {
+                        $errors[]='Please fill up input fields perfectly there are something wrong';
+                        return $errors;
+                    }
+                }
+
+            }
+            catch(Exception $e)
+            {
+                $errors[]='There are some problem from exception block';
+            }
+
+
+            try
+            {
+                $number=$post_dict['total_object'];
+
+                for($i=0;$i<$number;++$i)
+                {
+
+                    $destination_and_purpose="destination_and_purpose-".$i;
+                    $no_of_km="no_of_km-".$i;
+                    $parj_and_toll="parj_and_toll-".$i;
+                    $account_rm="account_rm-".$i;
+                    $misc_rm="misc_rm-".$i;
+                    $b_fast="b_fast-".$i;
+                    $lunch="lunch-".$i;
+                    $dinner="dinner-".$i;
+                    $amount_rm_1="amount_rm_1-".$i;
+                    $amount_rm_2="amount_rm_2-".$i;
+                    // i am here
+                    if(!isset($post_dict[$destination_and_purpose]) || !isset($post_dict[$no_of_km]) || !isset($post_dict[$parj_and_toll]) || !isset($post_dict[$account_rm]) || !isset($post_dict[$misc_rm]) || !isset($post_dict[$b_fast]) || !isset($post_dict[$lunch]) || !isset($post_dict[$dinner]) || !isset($post_dict[$amount_rm_1]) || !isset($post_dict[$amount_rm_2]) )
+                    {
+                        $errors[]='Please fill up input fields perfectly there are something wrong';
+                        return $errors;
+                    }
+                }
+
+            }
+            catch(Exception $e)
+            {
+                $errors[]='There are some problem from exception block';
+            }
+
+            return $errors;
+
+
+        }
     }
 ?>

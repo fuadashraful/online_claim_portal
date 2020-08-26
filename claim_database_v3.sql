@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 26, 2020 at 10:55 AM
+-- Generation Time: Aug 26, 2020 at 07:18 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -20,6 +20,85 @@ SET time_zone = "+00:00";
 --
 -- Database: `claim_database`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expense_claim`
+--
+
+CREATE TABLE `expense_claim` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `staff_no` varchar(50) DEFAULT NULL,
+  `depatment` varchar(50) DEFAULT NULL,
+  `month` varchar(50) DEFAULT NULL,
+  `first_500` decimal(10,2) DEFAULT NULL,
+  `thereafter` decimal(10,2) DEFAULT NULL,
+  `staff_signature` varchar(50) DEFAULT NULL,
+  `signature` varchar(50) DEFAULT NULL,
+  `uploaded_by` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `expense_claim`
+--
+
+INSERT INTO `expense_claim` (`id`, `name`, `staff_no`, `depatment`, `month`, `first_500`, `thereafter`, `staff_signature`, `signature`, `uploaded_by`) VALUES
+(1, 'fdsd', 'dfdfd', NULL, 'dfdsf', '43.00', '443.00', '343', '43', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expense_claim_form_data_a`
+--
+
+CREATE TABLE `expense_claim_form_data_a` (
+  `id` int(11) NOT NULL,
+  `cur_date` date DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `remarks` varchar(50) DEFAULT NULL,
+  `amount_1` decimal(10,2) DEFAULT NULL,
+  `amount_2` decimal(10,2) DEFAULT NULL,
+  `expense_claim_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `expense_claim_form_data_a`
+--
+
+INSERT INTO `expense_claim_form_data_a` (`id`, `cur_date`, `description`, `remarks`, `amount_1`, `amount_2`, `expense_claim_id`) VALUES
+(1, '2020-08-05', 'fdsfdsf', 'dfdsfdsf', '43.00', '4343.00', 1),
+(2, '2020-08-20', 'ffdsfdf', 'dfdsfdsf', '343.00', '343.00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expense_claim_form_data_b`
+--
+
+CREATE TABLE `expense_claim_form_data_b` (
+  `id` int(11) NOT NULL,
+  `destination_and_purpose_trip` varchar(50) DEFAULT NULL,
+  `no_of_km` varchar(50) DEFAULT NULL,
+  `parj_and_toll` varchar(50) DEFAULT NULL,
+  `account_rm` varchar(50) DEFAULT NULL,
+  `misc_rm` varchar(50) DEFAULT NULL,
+  `b_fast` decimal(10,2) DEFAULT NULL,
+  `lunch` decimal(10,2) DEFAULT NULL,
+  `dinner` decimal(10,2) DEFAULT NULL,
+  `amount_rm_1` decimal(10,2) DEFAULT NULL,
+  `amount_rm_2` decimal(10,2) DEFAULT NULL,
+  `explain_claim_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `expense_claim_form_data_b`
+--
+
+INSERT INTO `expense_claim_form_data_b` (`id`, `destination_and_purpose_trip`, `no_of_km`, `parj_and_toll`, `account_rm`, `misc_rm`, `b_fast`, `lunch`, `dinner`, `amount_rm_1`, `amount_rm_2`, `explain_claim_id`) VALUES
+(1, 'dsfdsfdsf', '44', '43', '43', '344', '3343.00', '4.00', '3434.00', '434.00', '34.00', 1),
+(2, 'vff', '434', '434', '3434', '434', '343.00', '3434.00', '434.00', '343.00', '43.00', 1);
 
 -- --------------------------------------------------------
 
@@ -219,6 +298,26 @@ INSERT INTO `users` (`id`, `username`, `email`, `user_type`, `active_status`, `p
 --
 
 --
+-- Indexes for table `expense_claim`
+--
+ALTER TABLE `expense_claim`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `expense_claim_form_data_a`
+--
+ALTER TABLE `expense_claim_form_data_a`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `expense_claim_id` (`expense_claim_id`);
+
+--
+-- Indexes for table `expense_claim_form_data_b`
+--
+ALTER TABLE `expense_claim_form_data_b`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `explain_claim_id` (`explain_claim_id`);
+
+--
 -- Indexes for table `overtime_teaching`
 --
 ALTER TABLE `overtime_teaching`
@@ -268,6 +367,24 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `expense_claim`
+--
+ALTER TABLE `expense_claim`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `expense_claim_form_data_a`
+--
+ALTER TABLE `expense_claim_form_data_a`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `expense_claim_form_data_b`
+--
+ALTER TABLE `expense_claim_form_data_b`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `overtime_teaching`
 --
 ALTER TABLE `overtime_teaching`
@@ -312,6 +429,18 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `expense_claim_form_data_a`
+--
+ALTER TABLE `expense_claim_form_data_a`
+  ADD CONSTRAINT `expense_claim_form_data_a_ibfk_1` FOREIGN KEY (`expense_claim_id`) REFERENCES `expense_claim` (`id`);
+
+--
+-- Constraints for table `expense_claim_form_data_b`
+--
+ALTER TABLE `expense_claim_form_data_b`
+  ADD CONSTRAINT `expense_claim_form_data_b_ibfk_1` FOREIGN KEY (`explain_claim_id`) REFERENCES `expense_claim` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `overtime_teaching_data`

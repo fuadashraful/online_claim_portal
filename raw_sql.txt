@@ -120,3 +120,54 @@ create table question_paper_form_data
     FOREIGN KEY(question_paper_form_id) REFERENCES question_paper_form(id)
     
 )
+
+
+// create expense claim table
+create table expense_claim
+(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    name varchar(50),
+    staff_no varchar(50),
+    depatment varchar(50),
+    month varchar(50),
+    first_500 DECIMAL(10,2),
+    thereafter DECIMAL(10,2),
+    staff_signature varchar(50),
+    signature varchar(50),
+    uploaded_by int DEFAULT(0)
+    
+)
+
+// create expense claim data a
+create table expense_claim_form_data_a
+(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    cur_date date,
+    description varchar(50),
+    remarks varchar(50),
+    amount_1 DECIMAL(10,2),
+    amount_2 DECIMAL(10,2),
+    expense_claim_id int NOT null,
+     FOREIGN KEY(expense_claim_id) REFERENCES expense_claim(id)
+)
+
+// create expense claim data b
+
+create table expense_claim_form_data_b
+(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    destination_and_purpose_trip varchar(50),
+    no_of_km varchar(50),
+    parj_and_toll varchar(50),
+    account_rm varchar(50),
+    misc_rm varchar(50),
+    b_fast DECIMAL(10,2),
+    lunch DECIMAL(10,2),
+    dinner DECIMAL(10,2),
+    amount_rm_1 DECIMAL(10,2),
+    amount_rm_2 DECIMAL(10,2),
+    explain_claim_id int NOT null,
+    FOREIGN KEY (explain_claim_id)
+    REFERENCES expense_claim(id)
+    ON DELETE CASCADE
+)
