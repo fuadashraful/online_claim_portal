@@ -60,7 +60,7 @@
     		}
     		catch(PDOException $e)
     		{
-
+                echo "Sql pdo query error".$e;
     		}
     	}
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 25, 2020 at 08:29 PM
+-- Generation Time: Aug 26, 2020 at 10:55 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -135,6 +135,65 @@ INSERT INTO `part_time_teaching_data` (`id`, `added_date`, `subject`, `lectur_ho
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `question_paper_form`
+--
+
+CREATE TABLE `question_paper_form` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `school` varchar(50) DEFAULT NULL,
+  `emp_no` varchar(50) DEFAULT NULL,
+  `department` varchar(50) DEFAULT NULL,
+  `cur_status` varchar(50) DEFAULT NULL,
+  `cur_month` varchar(50) DEFAULT NULL,
+  `two_hour_script` decimal(10,2) DEFAULT NULL,
+  `two_and_half_hour_script` decimal(10,2) DEFAULT NULL,
+  `three_hour_script` decimal(10,2) DEFAULT NULL,
+  `two_hour_paper` decimal(10,2) DEFAULT NULL,
+  `two_and_half_hour_paper` decimal(10,2) DEFAULT NULL,
+  `three_hour_paper` decimal(10,2) DEFAULT NULL,
+  `signature` varchar(50) DEFAULT NULL,
+  `cur_date` date DEFAULT NULL,
+  `signature_hod_or_cordinator` varchar(50) DEFAULT NULL,
+  `signature_dean_of_school` varchar(50) DEFAULT NULL,
+  `signature_head_of_exam_unit` varchar(50) DEFAULT NULL,
+  `uploaded_by` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `question_paper_form`
+--
+
+INSERT INTO `question_paper_form` (`id`, `name`, `school`, `emp_no`, `department`, `cur_status`, `cur_month`, `two_hour_script`, `two_and_half_hour_script`, `three_hour_script`, `two_hour_paper`, `two_and_half_hour_paper`, `three_hour_paper`, `signature`, `cur_date`, `signature_hod_or_cordinator`, `signature_dean_of_school`, `signature_head_of_exam_unit`, `uploaded_by`) VALUES
+(1, 'fdfdf', 'dfdfssdf', 'dfdsf', 'dsfdsf', 'dfdsf', 'dfsdf', '3.00', '34.00', '344.00', '4343.00', '43.00', '434.00', 'terfsdfdf', '2020-08-20', 'fdfdf', 'dfsdsf', 'dsfsdf', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `question_paper_form_data`
+--
+
+CREATE TABLE `question_paper_form_data` (
+  `id` int(11) NOT NULL,
+  `semester` varchar(50) DEFAULT NULL,
+  `subject` varchar(50) DEFAULT NULL,
+  `duration_of_question` varchar(50) DEFAULT NULL,
+  `ans_script_or_question_set_amount` decimal(10,2) DEFAULT NULL,
+  `ans_script_or_question_set_amount_type` smallint(6) DEFAULT NULL,
+  `question_paper_form_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `question_paper_form_data`
+--
+
+INSERT INTO `question_paper_form_data` (`id`, `semester`, `subject`, `duration_of_question`, `ans_script_or_question_set_amount`, `ans_script_or_question_set_amount_type`, `question_paper_form_id`) VALUES
+(1, 'fdfsd', 'dfssdf', '32', '3.00', 1, 1),
+(2, 'f', 'dfsdf', '34', '34.00', 0, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -186,6 +245,19 @@ ALTER TABLE `part_time_teaching_data`
   ADD KEY `part_time_teaching_tbl_id` (`part_time_teaching_tbl_id`);
 
 --
+-- Indexes for table `question_paper_form`
+--
+ALTER TABLE `question_paper_form`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `question_paper_form_data`
+--
+ALTER TABLE `question_paper_form_data`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_paper_form_id` (`question_paper_form_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -220,6 +292,18 @@ ALTER TABLE `part_time_teaching_data`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `question_paper_form`
+--
+ALTER TABLE `question_paper_form`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `question_paper_form_data`
+--
+ALTER TABLE `question_paper_form_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -240,6 +324,12 @@ ALTER TABLE `overtime_teaching_data`
 --
 ALTER TABLE `part_time_teaching_data`
   ADD CONSTRAINT `part_time_teaching_data_ibfk_1` FOREIGN KEY (`part_time_teaching_tbl_id`) REFERENCES `part_time_teaching` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `question_paper_form_data`
+--
+ALTER TABLE `question_paper_form_data`
+  ADD CONSTRAINT `question_paper_form_data_ibfk_1` FOREIGN KEY (`question_paper_form_id`) REFERENCES `question_paper_form` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

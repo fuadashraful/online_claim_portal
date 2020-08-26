@@ -76,3 +76,47 @@ create table overtime_teaching_data(
     ON DELETE CASCADE
     
 )
+
+
+// question paper form create
+
+create table question_paper_form
+(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    name varchar(50),
+    school varchar(50),
+    emp_no varchar(50),
+    department varchar(50),
+    cur_status varchar(50),
+    cur_month varchar(50),
+    two_hour_script DECIMAL(10,2),
+    two_and_half_hour_script DECIMAL(10,2),
+    three_hour_script DECIMAL(10,2),
+    two_hour_paper DECIMAL(10,2),
+    two_and_half_hour_paper DECIMAL(10,2),
+    three_hour_paper DECIMAL(10,2),
+    signature varchar(50),
+    cur_date DATE,
+    signature_hod_or_cordinator varchar(50),
+    signature_dean_of_school varchar(50),
+    signature_head_of_exam_unit varchar(50),
+    uploaded_by int DEFAULT(0)
+    
+    
+)
+
+
+// create question paper form data
+
+create table question_paper_form_data
+(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    semester varchar(50),
+    subject varchar(50),
+    duration_of_question varchar(50),
+    ans_script_or_question_set_amount DECIMAL(10,2),
+    ans_script_or_question_set_amount_type smallint,
+    question_paper_form_id int NOT null,
+    FOREIGN KEY(question_paper_form_id) REFERENCES question_paper_form(id)
+    
+)

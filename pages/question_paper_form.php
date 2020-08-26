@@ -1,15 +1,86 @@
+<?php
+    session_start();
+    $page_title="Welcome to question paper script teaching page";
+    include_once '../db/DB.php';
+    include_once '../db/Validate.php';
+    $conn=DB::getConnection();
+    $validate=new Validate($conn);
+    $errors = array();
+
+    if(isset($_POST['submit_form']))
+    {
+        $errors=$validate->validate_question_paper_form_data($_POST);
+        if(empty($errors))
+        {
+            try
+            {
+                $name=$_POST['name'];
+                $school=$_POST['school'];
+                $emp_no=$_POST['emp_no'];
+                $department=$_POST['department'];
+
+                $status=$_POST['status'];
+                $month=$_POST['month'];
+                $two_hour_script=$_POST['two_hour_script'];
+                $two_and_half_hour_script=$_POST['two_and_half_hour_script'];
+
+                $three_hour_script=$_POST['three_hour_script'];
+                $two_hour_paper=$_POST['two_hour_paper'];
+                $two_and_half_hour_paper=$_POST['two_and_half_hour_paper'];
+                $three_hour_paper=$_POST['three_hour_paper'];
+
+                $signature=$_POST['signature'];
+                $signature_date=$_POST['signature_date']; 
+                $signature_hod_or_cordinator=$_POST['signature_hod_or_cordinator'];
+                $signature_dean_school=$_POST['signature_dean_school'];
+                $signature_head_exam_unit=$_POST['signature_head_exam_unit'];
+
+                $uploaded_by=$_SESSION['user_id'];
+
+                $sql = "INSERT INTO question_paper_form (name, school , emp_no , department , cur_status, cur_month , two_hour_script , two_and_half_hour_script , three_hour_script ,  two_hour_paper , two_and_half_hour_paper , three_hour_paper ,  signature , cur_date , signature_hod_or_cordinator , signature_dean_of_school , signature_head_of_exam_unit , uploaded_by ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $stmt= $conn->prepare($sql);
+                $stmt->execute([$name,$school,$emp_no,$department,$status,$month,$two_hour_script,$two_and_half_hour_script,$three_hour_script,$two_hour_paper,$two_and_half_hour_paper,$three_hour_paper,$signature,$signature_date,$signature_hod_or_cordinator,$signature_dean_school,$signature_head_exam_unit,$uploaded_by]);
+                $last_id = $conn->lastInsertId();
+
+                $number=$_POST['total_object'];
+
+                for($i=0;$i<$number;++$i)
+                {
+                    $semester="semester-".$i;
+                    $subject="subject-".$i;
+                    $question_duration="question_duration-".$i;
+                    $answer_script_or_question="answer_script_or_question_paper-".$i;
+                    $answer_script_or_question_type="answer_script_or_question_paper_type-".$i;
+
+                    $sql = "INSERT INTO question_paper_form_data ( semester , subject ,   duration_of_question , ans_script_or_question_set_amount , ans_script_or_question_set_amount_type , question_paper_form_id ) VALUES (?,?,?,?,?,?)";
+                    $stmt= $conn->prepare($sql);
+                    $stmt->execute([$_POST[$semester] ,$_POST[$subject] , $_POST[$question_duration] , $_POST[$answer_script_or_question] ,$_POST[$answer_script_or_question_type] , $last_id]);
+                }
+                $_SESSION['success_message']="question paper data inserted successfully";
+                header("Location: ../index.php");
+
+
+            }
+            catch(PDOException $e)
+            {
+                echo "Sql pdo query error".$e;
+            }
+        }
+    }
+?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Claim For Marking of Answer Scripts & Questions Papers | Nilai University</title>
+    <?php include '../partials/css_files.php' ?>
 <style type="text/css">
 /* body style here */
 
 body {
     background: rgb(204,204,204);
-    background-image: url("formbg.jpg");
+    background-image: url("../assets/images/formbg.jpg");
     overflow:scroll;
 }
 
@@ -150,29 +221,29 @@ input[type=text] {
 
 }
 .divTableRow {
-	display: table-row;
+    display: table-row;
 }
 .divTableHeading {
-	background-color: #EEE;
-	display: table-header-group;
+    background-color: #EEE;
+    display: table-header-group;
 }
 .divTableCell, .divTableHead {
-	border: 1px solid #999999;
-	display: table-cell;
-	padding: 3px 10px;
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
 }
 .divTableHeading {
-	background-color: #EEE;
-	display: table-header-group;
-	font-weight: bold;
+    background-color: #EEE;
+    display: table-header-group;
+    font-weight: bold;
 }
 .divTableFoot {
-	background-color: #EEE;
-	display: table-footer-group;
-	font-weight: bold;
+    background-color: #EEE;
+    display: table-footer-group;
+    font-weight: bold;
 }
 .divTableBody {
-	display: table-row-group;
+    display: table-row-group;
 }
 
                                 /*  Table style End here*/
@@ -181,168 +252,155 @@ input[type=text] {
 </style>
 </head>
 <body>  
-    <page size="A4">
-        <img src="QuestionPaper.png" alt="QuestionsMarking" width="100%" height="130">
-        <!----------------Table border padding box ----------------------->
-            <div class="box">
-              <!----------------INPUT HEADER FORM ----------------------->
-              <div style="text-align: justify;-moz-text-align-last:justify ;text-align-last:justify">
-                  <form>
-                    <a>Name: <input style="width: auto;font-size:25px;" type="text" id="name" name="name"> School: <input style="width:auto" type="text" id="school" name="school">
-                  </form>
-                  <form>
-                      <a>Emp. NO:<input style="width: auto;font-size:25px;" type="text" id="empno" name="empno">Department: <input style="width:auto" type="text" id="department" name="department">
-                  </form>
-                  <form>
-                      <a>Status: <input style="width: auto;font-size:25px;" type="text" id="status" name="status" placeholder="Part Time/Full Time"> Month: <input style="width:auto" type="text" id="month" name="month">
-                  </form><br><br></br>
+    <div class="">
+        <img src="../assets/images/QuestionPaper.png" alt="QuestionsMarking" width="100%" height="130">
+            <div class="row">
+                <?php
+                    if(!empty($errors))
+                    {
+                         foreach ($errors as $error) 
+                         {
+                ?>
+                    <div class="col-md-6 offset-md-3">
+                        <div class="alert alert-danger" role="alert">
+                        <?php echo $error ?>
+                        </div>
+                    </div>
+
+                <?php
+                        }
+                    $errors=array();   
+                   }
+                ?>
+            </div>
+
+        <input class="" type="number" id="member" name="member" value=""> Number of Rows: (max. 10)<br />
+        <button style="color:#fff;" href="#" id="filldetails" onclick="add_rows()">Generate Rows</button> 
+         <div id="main_table"/>
+<!--         <form method="POST" class="container card">
+
+                <div class="row">
+                
+                    <div class="col-md-6">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="school"> School</label>
+                        <input type="text" class="form-control" id="school" name="school">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="emp_no">Emp No:</label>
+                        <input type="text" class="form-control" id="emp_no" name="emp_no">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="department"> Department:</label>
+                        <input type="text" class="form-control" id="department" name="department">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="status"> Status</label>
+                        <input type="text" class="form-control" id="status" name="status" placeholder="partime/fulltime">
+                    </div>                    
+                    <div class="col-md-6">
+                        <label for="month"> Month</label>
+                        <input type="text" class="form-control" id="month" name="month">
+                    </div>
                 </div>
 
-              <!----------------INPUT HEADER FORM END----------------------->
+            <table class="table table-striped">
 
-              <!----------------Table code ----------------------->
-              <table style="border-collapse:collapse;width:100%; height: auto; text-align: center;" border="1"  >
-                <tbody>
+                <thead>
+                    <tr class="">
+                        <th rowspan="2" >Semester</th>
+                        <th rowspan="2">Subject</th>
+                        <th rowspan="2" >Duration of question</th>
+                        <th colspan="2" >Marked answer script/Question Paper set</th>
+                    </tr>
                     <tr>
-                      <td>Semester</td>
-                      <td>Subject</td>
-                      <td>Duration of<br>Question Paper</td>
-                      <td>No of Marked answer scripts/<br>No of Questions paper set</td>
+                        <th>Amount</th>
+                        <th>Select Type</th>
                     </tr>
-                    <tr type="input">
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                    </tr>
-                    <tr type="input">
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                    </tr>
-                    <tr type="input">
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                    </tr>
-                    <tr type="input">
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                    </tr>
-                    <tr type="input">
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                    </tr>
-                    <tr type="input">
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                    </tr>
-                    <tr type="input">
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                    </tr>
-                    <tr type="input">
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                      <td contenteditable="true">&nbsp;</td>
-                    </tr>
-                    <tr type="input">
-                      <td colspan="3">Total=</td>
-                      <td contenteditable="true">&nbsp;</td>
-                    </tr>
-                 </tbody>
-              </table>
-                        <!----------------Table code END ----------------------->
+                </thead>
+                <tbody>
+                <tr class="">
+                  <td ><input type="text" name="my_date"class="form-control" required></td>
+                  <td ><input type="text" name="no_of_std"class="form-control" required></td>
+                  <td ><input type="text" name="level"class="form-control" required></td>
+                  <td> <input type="number" name="lecture"class="form-control" required></td>
+                  <td >
+                      <select id="inputState" name="answer_type" class="form-control">
+                        <option value="0">Answer Script</option>
+                        <option value="1">Question set</option>
+                      </select>
+                  </td>
 
-    <!-------------------------After Table Rates of Payment Section START----------------------------------->
+                </tr>
+                </tbody>
+            </table>
 
-                  <div style="font-size:15px">
-                    <h3>Rates of Payment</h3>
-                    <h3>(i) Marking of Answer Scripts</h3>
-                    <div style="text-align: justify;-moz-text-align-last:justify ;text-align-last:justify">
-                        <form>
-                            (a) 2.0-hour paper: RM 6.00 per scripts X <input style="width: 16%" type="text" id="pricerate" name="pricerate">= RM <input style="width:16%" type="text" id="pricerate" name="pricerate">
-                        </form>
-                        <form>
-                            (b) 2.5-hour paper: RM 7.00 per scripts X <input style="width: 16%" type="text" id="pricerate" name="pricerate">= RM <input style="width:16%" type="text" id="pricerate" name="pricerate">
-                        </form>
-                        <form>
-                            (c) 3.0-hour paper: RM 8.00 per scripts X <input style="width: 16%" type="text" id="pricerate" name="pricerate">= RM <input style="width:16%" type="text" id="pricerate" name="pricerate">
-                        </form>
-                        <div style="text-align: justify;-moz-text-align-last: right;text-align-last: right">
-                            SUBTOTAL= RM<input style="width:16%" type="text" id="total" name="total">
-                        </div>
+ 
+                <div class="row my-3">
+                    <h3 class="col-12 text-center">(i) Marking of Answer Scripts </h3>
 
+                    <div class="col-md-8 offset-md-2 mt-2">        
+                         (a) 2.0-hour paper: RM 6.00 per scripts X <input type="number"  name="two_hour_script" required> Per Hour
                     </div>
-                    <h3>(ii) Setting Examination Question Papers</h3>
-                    <div style="text-align: justify;-moz-text-align-last:justify ;text-align-last:justify">
-                        <form>
-                            <a>(a) 2.0-hour paper: RM 75.00 per Paper X <input style="width: 16%" type="text" id="pricerate" name="pricerate">= RM <input style="width:16%" type="text" id="pricerate" name="pricerate">
-                        </form>
-                        <form>
-                            <a>(b) 2.5-hour paper: RM 85.00 per Paper X <input style="width: 16%" type="text" id="pricerate" name="pricerate">= RM <input style="width:16%" type="text" id="pricerate" name="pricerate">
-                        </form>
-                        <form>
-                            <a>(c) 3.0-hour paper: RM 100.00 per Paper X <input style="width: 16%" type="text" id="pricerate" name="pricerate">= RM <input style="width:16%" type="text" id="pricerate" name="pricerate">
-                        </form>
-                        <div style="text-align: justify;-moz-text-align-last: right;text-align-last: right">
-                            SUBTOTAL= RM<input style="width:16%" type="text" id="subtotal" name="subtotal">                           
-                        </div>
-                        <div style="text-align: justify;-moz-text-align-last: right;text-align-last: right">
-                            GRAND TOTAL= RM<input style="width:16%" type="text" id="grandtotal" name="grandtotal">                          
-                        </div>                         
+                    <div class="col-md-8 offset-md-2 mt-2">        
+                         (b) 2.5-hour paper: RM 7.00 per scripts X<input type="number"  name="two_and_half_hour_script" required> Per Hour
                     </div>
-                    <div>
-                      <form class="form-inline">
-                        <label for="signature">Signature</label>
-                        <input type="text" id="signature" name="signature">
-                        <label for="date"> Date</label>
-                        <input type="text" id="date" name="date">
-                      </form>
-                    </div>
-      <!----------------------------After Table Rates of Payment Section END-------------------------------------->
-
-        <!----------------------------PART II Section START-------------------------------------->
-
-                    <div style="background-color:rgb(5, 184, 238);color:rgb(0, 0, 0);padding-left: 10px">
-                      <h2>PART-II</h2>
+                    <div class="col-md-8 offset-md-2 mt-2">        
+                         (c) 3.0-hour paper: RM 8.00 per scripts X  <input type="number"  name="three_hour_script" required> Per Hour
                     </div>
 
-                    <div >
-                      <table style="width:100%; height: auto; text-align: center; border: none; " >
-                          <tr>
-                          <td >
-                            <div><br>
-                              Verified by: <input id="signature" name="signature" type="text" />
-                              <p>Head of Department/<br>Program Coordinator</p><br>
-                            </div>
-                          </td>
-                          <td>
-                            <div>
-                              Recommended/Not Recommended <input id="signature" name="signature" type="text" />
-                              <p>Dean of School</p><br>
-                            </div>
-                          </td>
-                          <td>
-                            <div>
-                              Verified by: <input id="signature" name="signature" type="text" />
-                              <p>Head of Exam Unit</p><br>
-                            </div>
-                          </td>
-                          </tr>
-                        </table>
-                    </div><br><br>
+                </div>
+
+                <div class="row my-3">
+                    <h3 class="col-12 text-center">(ii) Setting Examination Question Papers </h3>
+
+                    <div class="col-md-8 offset-md-2 mt-2">        
+                        (a) 2.0-hour paper: RM 75.00 per Paper X <input type="number"  name="two_hour_paper" required> Per Hour
+                    </div>
+                    <div class="col-md-8 offset-md-2 mt-2">        
+                        (b) 2.5-hour paper: RM 85.00 per Paper X<input type="number"  name="two_and_half_hour_paper" required> Per Hour
+                    </div>
+                    <div class="col-md-8 offset-md-2 mt-2">        
+                         (c) 3.0-hour paper: RM 100.00 per Paper X  <input type="number"  name="three_hour_paper" required> Per Hour
+                    </div>
+
+                </div> 
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="signature">Signature:</label>
+                        <input type="text" class="form-control" id="signature" name="signature">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="signature_date">Date:</label>
+                        <input type="date" class="form-control" id="signature_date" name="signature_date">
+                    </div>
+                </div>        
+
+                <div style="background-color:rgb(5, 184, 238);color:rgb(0, 0, 0);padding-left: 10px">
+                  <h2>PART-II</h2>
+                </div>
+
+                <div class="row my-3">
+                    <div class="col-md-4">
+                        Verified By</br>
+                        <input type="text" id="signature" name="signature_hod_or_cordinator">
+                        <p>Head of Department / Program Cordinator</p>
+                    </div>
+                    <div class="col-md-4">
+                        Recommended / Not Recommended by</br>
+                        <input type="text" id="signature" name="signature_dean_school">
+                        <p>Dean of School</p>                      
+                    </div>
+                    <div class="col-md-4">
+                        Varified by</br>
+                        <input type="text" id="signature" name="signature_head_exam_unit">
+                        <p>Head of Exam unit</p>                       
+                    </div>
+                </div>
 
                     <div class="text-block">
                         <p>1. Please attach Student Attendance Sheet with this claim; Claims must be verified and approved by the Head of Deportment. </p>
@@ -351,15 +409,39 @@ input[type=text] {
                         <p>4- Claims submitted after 5th of the month will be processed in the following month.</p>
                     </div>
                   </div>
-                </div>
-    <!----------------------------PART II Section END & Border Padding BOX END-------------------------------------->
 
                 <div style="display: flex; justify-content: center;; padding-bottom:10px;">
-                    <button type="button" class="button">Submit</button>
-                    <button type="button" class="button">Cancel</button>
+
+                <button type="button" class="" data-toggle="modal" data-target="#exampleModal">
+                 Submit
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are You sure to submit ?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="submit_form" class="btn btn-primary">YES</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    <a href="../index.php"><button type="button" class="button">Cancel</button></a>
                     <button type="button" class="button">Dashboard</button>
                 </div>
-            
-    </page>
+        </form>     -->    
+
+    </div>
+
+    <?php include '../partials/js_files.php' ?>
+    <script src="../assets/js/question_paper_form.js" type="text/javascript"></script>
 </body>
 </html> 

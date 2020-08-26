@@ -173,5 +173,55 @@
 
             return $errors;
         }
+
+
+        public function validate_question_paper_form_data($post_dict)
+        {
+            $errors=array();
+
+
+            try
+            {
+
+                if(!isset($post_dict['name']) || !isset($post_dict['school']) || !isset($post_dict['emp_no']) || !isset($post_dict['department']) || !isset($post_dict['status']) || !isset($post_dict['month']) || !isset($post_dict['two_hour_script']) || !isset($post_dict['two_and_half_hour_script']) || !isset($post_dict['three_hour_script']) || !isset($post_dict['two_hour_paper']) || !isset($post_dict['two_and_half_hour_paper']) || !isset($post_dict['three_hour_paper']) || !isset($post_dict['signature']) || !isset($post_dict['signature_date']) || !isset($post_dict['signature_hod_or_cordinator']) ||  !isset($post_dict['signature_dean_school']) || !isset($post_dict['signature_head_exam_unit']) )
+                {
+                    $errors[]='Please fill up input fields perfectly there are something wrongggggg';
+                    return $errors;                   
+                }
+
+            }
+            catch(Exception $e)
+            {
+                $errors[]='There are some problem from exception blockkkkk';
+                return $errors;
+            }
+
+            try
+            {
+                $number=$post_dict['total_object'];
+
+                for($i=0;$i<$number;++$i)
+                {
+                    $semester="semester-".$i;
+                    $subject="subject-".$i;
+                    $question_duration="question_duration-".$i;
+                    $answer_script_or_question="answer_script_or_question_paper-".$i;
+                    $answer_script_or_question_type="answer_script_or_question_paper_type-".$i;
+
+                    if(!isset($post_dict[$semester]) || !isset($post_dict[$subject]) || !isset($post_dict[$question_duration]) || !isset($post_dict[$answer_script_or_question]) || !isset($post_dict[$answer_script_or_question_type]) )
+                    {
+                        $errors[]='Please fill up input fields perfectly there are something wrong';
+                        return $errors;
+                    }
+                }
+
+            }
+            catch(Exception $e)
+            {
+                $errors[]='There are some problem from exception block';
+            }
+
+            return $errors;
+        }
     }
 ?>
