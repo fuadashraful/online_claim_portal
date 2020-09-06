@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -75,6 +76,30 @@
           background-color: rgb(236, 230, 230);
           padding: 20px;
         }
+ 
+
+    	.btn {
+	      border: none;
+	      color:transparent;
+	      padding: 8px 16px;
+	      text-align: center;
+	      text-decoration: none;
+	      display: inline-block;
+	      font-size: 22px;
+	      margin: 4px 2px;
+	      transition-duration: 0.4s;
+	      cursor: pointer;
+	    }
+	    .btn1 {
+	      background-color:transparent; 
+	      color: black;
+	      border: 1px solid rgb(0, 0, 0);
+	    }
+
+	    .btn1:hover {
+	      background-color: rgb(187, 0, 72);
+	      color: white;
+	    }
         
         /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
         @media screen and (max-width: 700px) {
@@ -87,23 +112,45 @@
 <body>
     <div class="bodybg">
       <div class="navbar">
-          <button type="button" class="button">Home</button>
-          <button type="button" class="button">Dashboard</button>
+         <a href="../index.php"> <button type="button" class="button">Home</button></a>
+<!--           <button type="button" class="button">Dashboard</button>
           <button type="button" class="button">Profile</button>
-          <button type="button" class="button">Logout</button>
+          <button type="button" class="button">Logout</button> -->
       </div>
 
     <div class="row">
       <div class="side">
         <h2 style="background-color:rgb(87, 205, 221); padding: 15px;"><b>Profile Dashboard</b></h2><br>
-        <p>Name: Md.Anik Khan</p><br>
-        <p>Email:anik@gmail.com</p><br>
-        <p>User Category:<small>Admin</small></p><br><br>
-        <button type="button" class="button">Update Password</button>
+        <p>Name: <?php echo $user['username']; ?></p><br>
+        <p>Email: <?php echo $user['email']; ?> </p><br>
+        <p>User Category:<small> Student </small></p><br><br>
+        <!-- <button type="button" class="button">Update Password</button> -->
       </div>
       <div class="main">
         <h2 style="background-color:rgb(87, 205, 221); padding: 15px;"><b>Dashboard</b></h2><br>
-        <h3>Your Total Submission:</h3><br>
+        <h3>Your Submitted Forms</h3><br>
+
+        <div class="row">
+        	<div class="col-md-6">
+					  <a href="student/student_parttime_claime.php"><btn class="btn btn1">Part-Time Teaching Form</btn></a>
+ 
+        	</div>
+        	<div class="col-md-6">
+         
+					  <a href="pages/overtime_teaching.php"><btn class="btn btn1">Over-Time Teaching Form</btn></a>
+ 
+        	</div>
+        	<div class="col-md-6">
+         
+					  <a href="pages/overtime_teaching.php"><btn class="btn btn1">Over-Time Teaching Form</btn></a>
+ 
+        	</div>
+        	<div class="col-md-6">
+         
+					  <a href="pages/overtime_teaching.php"><btn class="btn btn1">Over-Time Teaching Form</btn></a>
+ 
+        	</div>        	        	
+        </div>
       </div>
     </div>
 </body>

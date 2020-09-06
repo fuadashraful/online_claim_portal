@@ -7,6 +7,12 @@
     $validate=new Validate($conn);
     $errors = array();
 
+    if(!isset($_SESSION['user_id']))
+    {
+        $_SESSION['error_message']="You Have to log In first";
+        header("Location: ../index.php");
+    }
+
     if(isset($_POST['submit_form']))
     {
  
@@ -25,10 +31,11 @@
                 $signature_hod=$_POST['signature_hod'];
                 $signature_dean=$_POST['signature_dean'];
                 $cur_date=$_POST['cur_date'];
+                $uploaded_by=$_SESSION['user_id'];
 
-                $sql = "INSERT INTO part_time_teaching (name, school_of, month_name , department , lecture_per_hour, tutorial_per_hour,traveling_reimbursement_days,signature_hod,signature_dean,  added_date ) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                $sql = "INSERT INTO part_time_teaching (name, school_of, month_name , department , lecture_per_hour, tutorial_per_hour,traveling_reimbursement_days,signature_hod,signature_dean,  added_date , added_by ) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
                 $stmt= $conn->prepare($sql);
-                $stmt->execute([$name, $school_of, $month ,$dept,$lecture_rate,$tutorial_rate,$traveling_days,$signature_hod,$signature_dean,$cur_date]);
+                $stmt->execute([$name, $school_of, $month ,$dept,$lecture_rate,$tutorial_rate,$traveling_days,$signature_hod,$signature_dean,$cur_date, $uploaded_by ]);
                 $last_id = $conn->lastInsertId();
 
                 $number=$_POST['total_object'];

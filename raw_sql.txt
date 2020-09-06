@@ -171,3 +171,10 @@ create table expense_claim_form_data_b
     REFERENCES expense_claim(id)
     ON DELETE CASCADE
 )
+
+
+ALTER TABLE overtime_teaching
+ADD added_by int default 0
+
+ALTER TABLE part_time_teaching
+ADD added_by int default 0

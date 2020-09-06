@@ -50,6 +50,22 @@
                         }
                     ?>
 
+                    <?php
+                        if(isset($_SESSION['error_message']))
+                        {
+                           // echo "ok done";
+                    ?>
+                        <div class="col-md-6 offset-md-3">
+                            <div class="alert alert-danger" role="alert">
+                            <?php echo $_SESSION['error_message']; ?>
+                            </div>
+                        </div>
+                    <?php
+                            unset($_SESSION['error_message']);
+                        }
+                    ?>
+
+
 
             </div>
         </div>
@@ -58,7 +74,7 @@
 
             <?php if( !empty($user) ): ?>
 
-                <button type="button" class="button"><a href=""> <?= $user['username']; ?> </a></button>
+                <button type="button" class="button"><a href="pages/dashboard.php"> <?= $user['username']; ?> </a></button>
                 <button type="button" class="button"><a href="pages/logout.php">Logout ?</a></button>
 
             <?php else: ?>
@@ -69,13 +85,16 @@
             <?php endif; ?>
       </div>
 
-      <div class="bodybox">
-          <h1>Choose Your Option</h1>
-          <a href="pages/part_time_teaching.php"><btn class="btn btn1">Part-Time Teaching Form</btn></a>
-          <a href="pages/overtime_teaching.php"><btn class="btn btn1">Over-Time Teaching Form</btn></a>
-          <a href="pages/expense_claim_form.php"><btn class="btn btn1">Expense Claim Form</btn></a>
-          <a href="pages/question_paper_form.php"><btn class="btn btn1">Questions Paper From</btn></a>
-      </div> 
+      <?php
+        if(empty($user))
+        {
+          include 'pages/before_login_index.php';
+        }
+        else
+        {
+          include 'pages/after_login_index.php';
+        }
+      ?>
     </div>
 </body>
 </html>

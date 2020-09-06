@@ -6,7 +6,12 @@
     $conn=DB::getConnection();
     $validate=new Validate($conn);
     $errors = array();
-
+    
+    if(!isset($_SESSION['user_id']))
+    {
+        $_SESSION['error_message']="You Have to log In first";
+        header("Location: ../index.php");
+    }
 
     if(isset($_POST['submit_form']))
     {
@@ -33,10 +38,11 @@
     			$signature_hod=$_POST['signature_hod']; 
     			$signature_dean=$_POST['signature_dean'];
     			$signature_deputy_vc=$_POST['signature_deputy_vc'];
+                $uploaded_by=$_SESSION['user_id'];
 
-                $sql = "INSERT INTO overtime_teaching (name, faculty_of, emp_no , dept_name , position , semester , total_contact , total_excess_252 , diploma_lecture_rate ,  diploma_tutorial_rate , degree_lecture_rate, degree_tutorial_rate ,  signature_hod , signature_dean , signature_deputy_vc ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $sql = "INSERT INTO overtime_teaching (name, faculty_of, emp_no , dept_name , position , semester , total_contact , total_excess_252 , diploma_lecture_rate ,  diploma_tutorial_rate , degree_lecture_rate, degree_tutorial_rate ,  signature_hod , signature_dean , signature_deputy_vc , added_by) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 $stmt= $conn->prepare($sql);
-                $stmt->execute([$name,$facultyof, $emp_no,$dept,$position,$semester,$total_contact,$total_excess_252,$diploma_lecture_rate,$diploma_tutorial_rate,$degree_lecture_rate,$degree_tutorial_rate,$signature_hod,$signature_dean,$signature_deputy_vc]);
+                $stmt->execute([$name,$facultyof, $emp_no,$dept,$position,$semester,$total_contact,$total_excess_252,$diploma_lecture_rate,$diploma_tutorial_rate,$degree_lecture_rate,$degree_tutorial_rate,$signature_hod,$signature_dean,$signature_deputy_vc,$uploaded_by]);
                 $last_id = $conn->lastInsertId();
 
                 $number=$_POST['total_object'];

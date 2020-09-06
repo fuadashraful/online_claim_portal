@@ -7,6 +7,12 @@
     $validate=new Validate($conn);
     $errors = array();
 
+    if(!isset($_SESSION['user_id']))
+    {
+        $_SESSION['error_message']="You Have to log In first";
+        header("Location: ../index.php");
+    }
+    
     if(isset($_POST['submit_form']))
     {
         $errors=$validate->validate_question_paper_form_data($_POST);

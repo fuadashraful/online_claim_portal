@@ -7,6 +7,11 @@
     $validate=new Validate($conn);
     $errors = array();
 
+    if(!isset($_SESSION['user_id']))
+    {
+        $_SESSION['error_message']="You Have to log In first";
+        header("Location: ../index.php");
+    }
 
     if(isset($_POST['submit_form']))
     {
