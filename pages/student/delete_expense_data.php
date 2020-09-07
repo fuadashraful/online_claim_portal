@@ -1,4 +1,5 @@
 <?php
+
 	session_start();
 	$page_title="Welcome to DashBoard";
 	include_once '../../db/DB.php';
@@ -10,15 +11,15 @@
         $_SESSION['error_message']="You Have to log In first";
         header("Location: ../index.php");
     }
-	
-	if(isset( $_GET['id']))
+	if(isset($_GET['id']))
 	{
-			$id=$_GET['id'];
-		    $sql = "DELETE FROM `part_time_teaching` WHERE id = ?";        
-		    $q = $conn->prepare($sql);
+		$id=$_GET['id'];
+		//echo $id;
+	    $sql = "DELETE FROM `expense_claim` WHERE id = ?";        
+	    $q = $conn->prepare($sql);
 
-		    $response = $q->execute(array($id));
-		    $_SESSION['error_message']="Parttime data deleted";
-        	header("Location: ../../index.php");
+	    $response = $q->execute(array($id));
+	    $_SESSION['error_message']="Expense Claim data deleted Successfully";
+    	header("Location: ../../index.php");		
 	}
-?>
+?>	

@@ -85,11 +85,11 @@
 		<table class="table table-striped">
 		  <thead>
 		    <tr>
-		      <th scope="col">Added Date</th>
-		      <th scope="col">Subject</th>
-		      <th scope="col">Lecture Hour</th>
-		      <th scope="col">Lecture Type</th>
-		      <th scope="col">Verified By HOD</th>
+		      <th scope="col">Name</th>
+		      <th scope="col">School</th>
+		      <th scope="col">Month</th>
+		      <th scope="col">Department</th>
+
 		      <th scope="col">Action</th>
 		    </tr>
 		  </thead>
@@ -97,14 +97,13 @@
 	  	    <?php
 	    		foreach($rows as $row)
 	    		{
+	    			$cur_id=$row['id'];
 	    	?>
 		    <tr>
-
-		      <td><?php echo $row['added_date'] ?></td>
-		      <td><?php echo $row['subject'] ?></td>
-		      <td><?php echo $row['lectur_hour'] ?></td>
-		      <td><?php echo $row['lecture_type'] ?></td>
-		      <td><?php echo $row['varified_by_hod'] ?></td>
+		      <td><?php echo $row['name']; ?></td>
+		      <td><?php echo $row['school_of']; ?></td>
+		      <td><?php echo $row['month_name']; ?></td>
+		      <td><?php echo $row['department']; ?></td>
 		      <td>
 		      	<div class="row">
 		      		<div class="col-md-6">
@@ -118,7 +117,7 @@
 							  <div class="modal-dialog" role="document">
 							    <div class="modal-content">
 							      <div class="modal-header">
-							        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+							        <h5 class="modal-title" id="exampleModalLabel"> Confirm Action</h5>
 							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							          <span aria-hidden="true">&times;</span>
 							        </button>
@@ -128,7 +127,12 @@
 							      </div>
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							        <a href="delete_partime_data.php?id=<?php echo $row['id']; ?>"><button type="button" class="btn btn-danger">Yes</button></a>
+							        <form method="POST" action="">
+			  
+			 							<a href="<?php echo 'delete_partime_data.php?id='.$row["id"]; ?>">
+								 		<button type="button" class="btn btn-danger">Yes</button>
+								 		</a>
+							 		</form>
 							      </div>
 							    </div>
 							  </div>

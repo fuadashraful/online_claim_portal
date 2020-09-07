@@ -110,6 +110,7 @@
   </style>
 </head>
 <body>
+ 
     <div class="bodybg">
       <div class="navbar">
          <a href="../index.php"> <button type="button" class="button">Home</button></a>
@@ -132,22 +133,22 @@
 
         <div class="row">
         	<div class="col-md-6">
-					  <a href="student/student_parttime_claime.php"><btn class="btn btn1">Part-Time Teaching Form</btn></a>
+					  <a href="student/student_parttime_claime.php"><btn class="btn btn1">Part-Time Teaching Claims</btn></a>
  
         	</div>
         	<div class="col-md-6">
          
-					  <a href="pages/overtime_teaching.php"><btn class="btn btn1">Over-Time Teaching Form</btn></a>
+					  <a href="student/student_overtime_claim.php"><btn class="btn btn1">Over-Time Teaching Claims</btn></a>
  
         	</div>
         	<div class="col-md-6">
          
-					  <a href="pages/overtime_teaching.php"><btn class="btn btn1">Over-Time Teaching Form</btn></a>
+					  <a href="student/student_expense_claim.php"><btn class="btn btn1">Expense claim Forms</btn></a>
  
         	</div>
         	<div class="col-md-6">
          
-					  <a href="pages/overtime_teaching.php"><btn class="btn btn1">Over-Time Teaching Form</btn></a>
+					  <a href="student/student_quetionpaper_claim.php"><btn class="btn btn1">Question Paper Claim Form</btn></a>
  
         	</div>        	        	
         </div>
