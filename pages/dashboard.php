@@ -29,5 +29,9 @@
     if($user['user_type']==2)
     {
     	include './student_dashboard.php';
-    } 
+    }
+    else
+    {
+        include './admin_teacher_dashboard.php';
+    }
 ?>
