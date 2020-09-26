@@ -143,9 +143,9 @@
 								  </div>
 								</div>
 			      		</div>
-			      		<div class="col-md-6">
+<!-- 			      		<div class="col-md-6">
 			      			<a><button class="btn btn-sm btn-info">Details</button></a>
-			      		</div>
+			      		</div> -->
 			      	</div>
 			      </td>
 	    

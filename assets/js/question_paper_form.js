@@ -107,10 +107,10 @@ function parseHtml(number)
 		'                </div> '+
 		''+
 		'                <div class="row">'+
-		'                    <div class="col-md-6">'+
-		'                        <label for="signature">Signature:</label>'+
-		'                        <input type="text" class="form-control" id="signature" name="signature">'+
-		'                    </div>'+
+		// '                    <div class="col-md-6">'+
+		// '                        <label for="signature">Signature:</label>'+
+		// '                        <input type="text" class="form-control" id="signature" name="signature">'+
+		// '                    </div>'+
 		'                    <div class="col-md-6">'+
 		'                        <label for="signature_date">Date:</label>'+
 		'                        <input type="date" class="form-control" id="signature_date" name="signature_date">'+
@@ -120,25 +120,25 @@ function parseHtml(number)
 		'                <div style="background-color:rgb(5, 184, 238);color:rgb(0, 0, 0);padding-left: 10px">'+
 		'                  <h2>PART-II</h2>'+
 		'                </div>'+
-		''+
-		'                <div class="row my-3">'+
-		'                    <div class="col-md-4">'+
-		'                        Verified By</br>'+
-		'                        <input type="text" id="signature" name="signature_hod_or_cordinator">'+
-		'                        <p>Head of Department / Program Cordinator</p>'+
-		'                    </div>'+
-		'                    <div class="col-md-4">'+
-		'                        Recommended / Not Recommended by</br>'+
-		'                        <input type="text" id="signature" name="signature_dean_school">'+
-		'                        <p>Dean of School</p>                      '+
-		'                    </div>'+
-		'                    <div class="col-md-4">'+
-		'                        Varified by</br>'+
-		'                        <input type="text" id="signature" name="signature_head_exam_unit">'+
-		'                        <p>Head of Exam unit</p>                       '+
-		'                    </div>'+
-		'                </div>'+
-		''+
+		// ''+
+		// '                <div class="row my-3">'+
+		// '                    <div class="col-md-4">'+
+		// '                        Verified By</br>'+
+		// '                        <input type="text" id="signature" name="signature_hod_or_cordinator">'+
+		// '                        <p>Head of Department / Program Cordinator</p>'+
+		// '                    </div>'+
+		// '                    <div class="col-md-4">'+
+		// '                        Recommended / Not Recommended by</br>'+
+		// '                        <input type="text" id="signature" name="signature_dean_school">'+
+		// '                        <p>Dean of School</p>                      '+
+		// '                    </div>'+
+		// '                    <div class="col-md-4">'+
+		// '                        Varified by</br>'+
+		// '                        <input type="text" id="signature" name="signature_head_exam_unit">'+
+		// '                        <p>Head of Exam unit</p>                       '+
+		// '                    </div>'+
+		// '                </div>'+
+		// ''+
 		'                    <div class="text-block">'+
 		'                        <p>1. Please attach Student Attendance Sheet with this claim; Claims must be verified and approved by the Head of Deportment. </p>'+
 		'                        <p>2. All claims must be submitted to the respective Admit; Assistants/Officers in the School by end of the month.</p>'+

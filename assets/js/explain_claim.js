@@ -1,4 +1,4 @@
-function add_rows(){
+ function add_rows(){
     // Number of inputs to create
     var number = document.getElementById("member").value;
     console.log(number);
@@ -127,16 +127,16 @@ function parseHtml(number)
 	'                        I have reviewed the details of the above expense claim and I am satisfied that these expenses were properly incurred on behalf of the company and are in compliance with all applicable policies and guidelines.</td>'+
 	'                      <td class="">For Finance only:</td>'+
 	'                    </tr>'+
-	'                    <tr>'+
-	'                    <td>                       '+
-	'                       <label for="name">Staff Signature:</label>'+
-	'                        <input type="text" class="form-control" id="staff_signature" name="staff_signature">'+
-	'                    </td>'+
-	'                    <td>                      '+
-	'                        <label for="name">Signature:</label>'+
-	'                        <input type="text" class="form-control" id="signature" name="signature"></td>'+
-	'                    <td> Checked by:</td>'+
-	'                    </tr>'+
+	// '                    <tr>'+
+	// '                    <td>                       '+
+	// '                       <label for="name">Staff Signature:</label>'+
+	// '                        <input type="text" class="form-control" id="staff_signature" name="staff_signature">'+
+	// '                    </td>'+
+	// '                    <td>                      '+
+	// '                        <label for="name">Signature:</label>'+
+	// '                        <input type="text" class="form-control" id="signature" name="signature"></td>'+
+	// '                    <td> Checked by:</td>'+
+	// '                    </tr>'+
 	'                  </tbody>'+
 	'                </table>                '+
 	''+

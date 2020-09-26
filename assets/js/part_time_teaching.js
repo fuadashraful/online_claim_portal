@@ -105,17 +105,17 @@ html+='        </tbody>'+
 '            <div style="background-color:rgb(5, 184, 238);color:rgb(0, 0, 0);padding-left: 10px">'+
 '              <h2>PART-II</h2>'+
 '            </div>'+
-'            <div >'+
-'              <div class="leftbox">'+
-'                Recommended / Not Recommended </br>'+
-'              <input type="text" id="signature" name="signature_hod">'+
-'              <p>Head of Department</p>'+
-'              </div>'+
-'              <div class="rightbox">'+
-'                Appreved / Not Approved</br>'+
-'                <input type="text" id="signature" name="signature_dean">'+
-'                <p>Dean of School</p>'+
-'              </div>'+
+// '            <div >'+
+// '              <div class="leftbox">'+
+// '                Recommended / Not Recommended </br>'+
+// '              <input type="text" id="signature" name="signature_hod">'+
+// '              <p>Head of Department</p>'+
+// '              </div>'+
+// '              <div class="rightbox">'+
+// '                Appreved / Not Approved</br>'+
+// '                <input type="text" id="signature" name="signature_dean">'+
+// '                <p>Dean of School</p>'+
+// '              </div>'+
 '            </div><br></br></br><br></br></br><br></br></br>'+
 '            <div class="text-block">'+
 '                <p>1. Please attach Student Attendance Sheet with this claim; Claims must be verified and approved by the Deeportment. </p>'+

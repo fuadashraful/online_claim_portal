@@ -114,23 +114,23 @@ html+='        </tbody>'+
 '        <div style="background-color:rgb(5, 184, 238);color:rgb(0, 0, 0);padding-left: 10px">'+
 '          <h2>PART-II</h2>'+
 '        </div>'+
-''+
-'        <div class="row my-3">'+
-'            <div class="col-md-4">'+
-'                Verified By</br>'+
-'                <input type="text" id="signature" name="signature_hod">'+
-'                <p>Head of Department</p>'+
-'            </div>'+
-'            <div class="col-md-4">'+
-'                Recommended by</br>'+
-'                <input type="text" id="signature" name="signature_dean">'+
-'                <p>Dean of Faculty</p>                      '+
-'            </div>'+
-'            <div class="col-md-4">'+
-'                Approved by</br>'+
-'                <input type="text" id="signature" name="signature_deputy_vc">'+
-'                <p>Deputy Vice Chancellor</p>                       '+
-'            </div>'+
+// ''+
+// '        <div class="row my-3">'+
+// '            <div class="col-md-4">'+
+// '                Verified By</br>'+
+// '                <input type="text" id="signature" name="signature_hod">'+
+// '                <p>Head of Department</p>'+
+// '            </div>'+
+// '            <div class="col-md-4">'+
+// '                Recommended by</br>'+
+// '                <input type="text" id="signature" name="signature_dean">'+
+// '                <p>Dean of Faculty</p>                      '+
+// '            </div>'+
+// '            <div class="col-md-4">'+
+// '                Approved by</br>'+
+// '                <input type="text" id="signature" name="signature_deputy_vc">'+
+// '                <p>Deputy Vice Chancellor</p>                       '+
+// '            </div>'+
 '        </div>'+
 ''+
 '            <div class="text-block">'+
